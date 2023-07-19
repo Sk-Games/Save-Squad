@@ -7,7 +7,7 @@ using TMPro;
 public class gameManager : MonoBehaviour
 {
     public GameObject[] enemy;
-    public GameObject fire;
+    
     
 
     float rangeX;
@@ -22,12 +22,13 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("spawn", 0.5f, 2f);
+        InvokeRepeating("spawn", 0.5f, 3f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         scoreText.text = "Score : " + score;
     }
 
@@ -39,14 +40,11 @@ public class gameManager : MonoBehaviour
         ypass = rangeY;
         int prefabIndex = Random.Range(0, enemy.Length);
         Instantiate(enemy[prefabIndex], new Vector3(rangeX, rangeY, 0f), Quaternion.identity);
-       // StartCoroutine(monsterfire());
+        
 
     }
-    /*
-    IEnumerator monsterfire()
-    {
-        yield return new WaitForSeconds(1f);
-        Instantiate(fire,new Vector3(rangeX,rangeY,0f),Quaternion.AngleAxis(-90,Vector3.forward));
+    
 
-    }*/
+
+    
 }

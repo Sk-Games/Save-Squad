@@ -407,6 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bomb: {fileID: 2345422223913698781, guid: 37ad62156b1835b4fb4149eb2ce78515, type: 3}
+  enemyDamage: 0
+  fire: {fileID: 7495846924353343237, guid: 7c14875d3b4cf5243b7a28b3e6734eff, type: 3}
 --- !u!70 &5744696267727588235
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
