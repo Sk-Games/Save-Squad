@@ -22,12 +22,7 @@ public class enemy : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        
-       
-    }
-    //new Vector3(rangeX, rangeY, 0f)
+    
     IEnumerator monsterfire()
     {
         while (true)
