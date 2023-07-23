@@ -55,6 +55,7 @@ public class enemy : MonoBehaviour
             gm.score++;
             GameObject clone = Instantiate(bomb, transform.position, Quaternion.identity);
             Destroy(clone, 0.5f);
+            gm.enemyCount++;
 
         }
         

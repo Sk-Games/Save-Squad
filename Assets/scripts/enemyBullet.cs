@@ -33,7 +33,7 @@ public class enemyBullet : MonoBehaviour
             {
                 pp.health--;
                 //player.gameObject.GetComponent<Players>().phealth--;  // this was refering to the player prefab the changes made in prefab remain after the execution end.
-                Debug.Log(pp.health);
+                //Debug.Log(pp.health);
                 Destroy(gameObject);
             }
 

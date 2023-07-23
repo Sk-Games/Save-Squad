@@ -6,6 +6,8 @@ using TMPro;
 
 public class gameManager : MonoBehaviour
 {
+    MenuController mc;
+
     public GameObject[] enemy;
 
     public bool isAlive = true;
@@ -16,8 +18,11 @@ public class gameManager : MonoBehaviour
     public float xpass;
     public float ypass;
 
+    public int enemyCount = 0;
 
     public GameObject panel;
+    public GameObject gameui;
+
 
     [Header("health")]
 
@@ -37,6 +42,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mc = GameObject.Find("levelcontroller").GetComponent<MenuController>();
         InvokeRepeating("spawn", 0.5f, 3f);
         
     }
@@ -66,6 +72,7 @@ public class gameManager : MonoBehaviour
             CancelInvoke("spawn");
             isAlive = false;
             panel.SetActive(true);
+            gameui.SetActive(false);
             if (score > highScore)
             {
                 highScore = score;
@@ -74,6 +81,24 @@ public class gameManager : MonoBehaviour
             scoreText1.text = "Your Score : " + score;
             highScoreText.text = "High Score : "+highScore;
         }
+
+
+        if (enemyCount>=5)
+        {
+            panel.SetActive(true);
+            gameui.SetActive(false);
+            int highScore = PlayerPrefs.GetInt("HighScore", 0);
+            CancelInvoke("spawn");
+            if (score > highScore)
+            {
+                highScore = score;
+                PlayerPrefs.SetInt("HighScore", highScore);
+            }
+            scoreText1.text = "Your Score : " + score;
+            highScoreText.text = "High Score : " + highScore;
+            //mc.nextScene();
+        }
+
     }
 
     void spawn()
@@ -84,6 +109,7 @@ public class gameManager : MonoBehaviour
         ypass = rangeY;
         int prefabIndex = Random.Range(0, enemy.Length);
         Instantiate(enemy[prefabIndex], new Vector3(rangeX, rangeY, 0f), Quaternion.identity);
+        
     }
     
 
