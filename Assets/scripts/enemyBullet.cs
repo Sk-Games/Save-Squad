@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class enemyBullet : MonoBehaviour
 {
-    
+    levelmanager lm;
+
     public GameObject player;
     public float speed = 10f;
     gameManager pp;
     
+
     void Start()
     {
         pp = GameObject.Find("Spawner").GetComponent<gameManager>();
-        
+        lm = GameObject.Find("levelcontroller").GetComponent<levelmanager>();
     }
 
     
@@ -31,9 +33,10 @@ public class enemyBullet : MonoBehaviour
 
             if (transform.position.y <= -4.62f)
             {
-                pp.health--;
+                pp.health -= lm.healthDamage;
                 //player.gameObject.GetComponent<Players>().phealth--;  // this was refering to the player prefab the changes made in prefab remain after the execution end.
                 //Debug.Log(pp.health);
+
                 Destroy(gameObject);
             }
 

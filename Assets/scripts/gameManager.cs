@@ -7,10 +7,11 @@ using TMPro;
 public class gameManager : MonoBehaviour
 {
     MenuController mc;
-
+    levelmanager lm;
     public GameObject[] enemy;
 
     public bool isAlive = true;
+    public bool gameWon = false;
 
     float rangeX;
     float rangeY;
@@ -22,6 +23,8 @@ public class gameManager : MonoBehaviour
 
     public GameObject panel;
     public GameObject gameui;
+    public GameObject nextSceneButton;
+    public GameObject gameOverPanel;
 
 
     [Header("health")]
@@ -39,15 +42,18 @@ public class gameManager : MonoBehaviour
     public TMP_Text highScoreText;
     
 
-    // Start is called before the first frame update
+    
     void Start()
     {
+        lm = GameObject.Find("levelcontroller").GetComponent<levelmanager>();
         mc = GameObject.Find("levelcontroller").GetComponent<MenuController>();
-        InvokeRepeating("spawn", 0.5f, 3f);
-        
+
+        InvokeRepeating("spawn", 0.5f, lm.spawnSpeed);
+
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         healthText.text = health.ToString();
@@ -71,8 +77,10 @@ public class gameManager : MonoBehaviour
             int highScore = PlayerPrefs.GetInt("HighScore", 0);
             CancelInvoke("spawn");
             isAlive = false;
-            panel.SetActive(true);
-            gameui.SetActive(false);
+            panel.SetActive(true);  //activate the panel that has next, previous & backtomenu option
+            gameui.SetActive(false);  //
+            nextSceneButton.SetActive(false);   //activate the panel but not the next level button because the game is over player has not won
+            gameOverPanel.SetActive(true);
             if (score > highScore)
             {
                 highScore = score;
@@ -83,10 +91,11 @@ public class gameManager : MonoBehaviour
         }
 
 
-        if (enemyCount>=5)
+        if (enemyCount>=50)
         {
             panel.SetActive(true);
             gameui.SetActive(false);
+            
             int highScore = PlayerPrefs.GetInt("HighScore", 0);
             CancelInvoke("spawn");
             if (score > highScore)
@@ -96,7 +105,8 @@ public class gameManager : MonoBehaviour
             }
             scoreText1.text = "Your Score : " + score;
             highScoreText.text = "High Score : " + highScore;
-            //mc.nextScene();
+            gameWon = true;
+            
         }
 
     }
